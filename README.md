@@ -62,5 +62,6 @@ c=exec&f=calc.exe&&_method=filter&
 设置`error_reporting(0);`版本不同，位置不一样，一般在start.php或者index.php
 ![Snipaste_2019-01-15_17-40-44.png](https://i.loli.net/2019/01/15/5c3dbc72305e1.png)
 ![Snipaste_2019-01-15_17-41-27.png](https://i.loli.net/2019/01/15/5c3dbccf8756e.png)
-![Snipaste_2019-01-15_17-40-44.png](https://i.loli.net/2019/01/15/5c3dbc72305e1.png)
+![Snipaste_2019-01-15_17-38-28.png](https://i.loli.net/2019/01/15/5c3dbd30d80fb.png)
+
 
