@@ -57,24 +57,22 @@ def apicheck():
         # Show the results
         print('Results found: {}'.format(results['total']))
         for result in results['matches']:
-                url = "http://" + result['ip_str']
-                try:
-                    checkall(url)
-                except:pass  
+                url = "http://" + result['ip_str']  
+                checkall(url)        
     except:pass
 
 def filecheck():
     for line in open("./Desktop/dd.txt","r"):
         line = line.strip("\r\n")
-        try:
-            checkall("http://"+line)
-        except:pass
-
+        checkall("http://"+line)
+        
 def checkall(url):
-    check5010(url)
-    check5023(url)
-    check5152(url)
-    check_route(url)
+    try:
+        check5010(url)
+        check5023(url)
+        check5152(url)
+        check_route(url)
+    except:pass
 
 if __name__ == "__main__":
     apicheck()
